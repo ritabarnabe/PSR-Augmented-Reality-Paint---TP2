@@ -150,15 +150,12 @@ def main():
     #---------
 ##nao esta a funcionar bem 
             if k==ord('q'):
-                image_gray=cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                moment= cv2.moments(image_gray)
-                X = int(moment ["m10"] / moment["m00"])
-                Y = int(moment ["m01"] / moment["m00"])
-                cv2.putText(frame, 'The end of the program', (X,Y), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255), 2)
+                print('finish')
                 break
             elif k==ord('w'):
                 with open('limits.json', 'w') as arquivo:
                     arquivo.write(json.dumps(total_limits))
+                print('file written , limits:'+str(total_limits))
               
   
 if __name__ == '__main__':
