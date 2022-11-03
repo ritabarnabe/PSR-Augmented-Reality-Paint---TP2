@@ -283,7 +283,7 @@ def main():
             draw_painted = cv2.imread(draw_painte)
 
             cv2.imshow('draw', draw)
-            print('1: Green \n2: Red \n3: Blue')   
+            print('1/4: Green \n2: Red \n3: Blue')   
 
         elif k == ord('f'):#finish painting with color
             painting_with_color = False
