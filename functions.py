@@ -4,12 +4,11 @@ from colorama import Fore, Back, Style
 from enum import Enum
 import math
 
-
-
 def evaluation(image,image_solution,limit_values):
 
     
-    boundaries = [((110, 50, 50), (130, 255, 255)), ((36, 25, 25), (70, 255, 255)), ((0, 0, 0), (9, 255, 255))]
+    #boundaries = [((110, 50, 50), (130, 255, 255)), ((36, 25, 25), (70, 255, 255)), ((0, 0, 0), (9, 255, 255))]
+    boundaries = [((200, 0, 0), (255, 150, 50)), ((0, 50, 0), (50, 200, 50)), ((0, 0, 200), (50, 50, 255))]
     color_result = []
     Acc_by_color = {}
 
@@ -28,11 +27,13 @@ def evaluation(image,image_solution,limit_values):
 
         image_solution = cv2.resize(image_solution, dim, interpolation = cv2.INTER_AREA)
 
-        ## convert to hsv both our drawing and the painted one
+        ## convert to rgb both our drawing and the painted one
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        #rgb = image
         color_used= cv2.inRange(rgb, lower, upper)
 
         rgb_s = cv2.cvtColor(image_solution, cv2.COLOR_BGR2RGB)
+        #rgb_s = image_solution
         color_real = cv2.inRange(rgb_s, lower, upper)
 
 
@@ -69,8 +70,6 @@ def evaluation(image,image_solution,limit_values):
     print("The accuracy of the paiting is:" + str(Acc_by_color))
 
 
-
-
 def program_instructions():
     print(Style.BRIGHT + 'Function of every key:')
     print(Style.BRIGHT + 'Colors:')
@@ -85,7 +84,7 @@ def program_instructions():
     print(Style.BRIGHT + 'Circles: ' + Style.RESET_ALL + 'o')
     print(Style.BRIGHT + 'Draw in the video: ' + Style.RESET_ALL + 'm')
     print(Style.BRIGHT + 'Paint-by-number test: ' + Style.RESET_ALL + 't')
-    print(Style.BRIGHT + 'finish / accuracy of the test: ' + Style.RESET_ALL + 'f\n')
+    print(Style.BRIGHT + 'Finish / Accuracy of the test: ' + Style.RESET_ALL + 'f\n')
     print(Style.BRIGHT + 'Save image: ' + Style.RESET_ALL + 'w')
     print(Style.BRIGHT + 'Clear the canvas: ' + Style.RESET_ALL + 'c')
     print(Style.BRIGHT + 'Quit: ' + Style.RESET_ALL + 'q')
