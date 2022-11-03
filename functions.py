@@ -80,21 +80,15 @@ def program_instructions():
     print(Style.BRIGHT + 'Thickness:')
     print(Style.BRIGHT + 'More thickness: ' + Style.RESET_ALL + '+')
     print(Style.BRIGHT + 'Less thickness: ' + Style.RESET_ALL + '-\n')
-    #print(Style.BRIGHT + 'Drawn with the mask: ' + Style.RESET_ALL + 'middle button hold')
-    #print(Style.BRIGHT + 'Drawn with the mouse: ' + Style.RESET_ALL + 'left button hold\n')
     print(Style.BRIGHT + 'Shapes:')
     print(Style.BRIGHT + 'Squares: ' + Style.RESET_ALL + 's')
-    print(Style.BRIGHT + 'Circles: ' + Style.RESET_ALL + 'f')
-    print(Style.BRIGHT + 'Ellipses: ' + Style.RESET_ALL + 'e\n')
-    print(Style.BRIGHT + 'Draw in a captured picture: ' + Style.RESET_ALL + 'p')
+    print(Style.BRIGHT + 'Circles: ' + Style.RESET_ALL + 'o')
     print(Style.BRIGHT + 'Draw in the video: ' + Style.RESET_ALL + 'm')
     print(Style.BRIGHT + 'Paint-by-number test: ' + Style.RESET_ALL + 't')
-    print(Style.BRIGHT + 'Accuracy of the test: ' + Style.RESET_ALL + 'v\n')
+    print(Style.BRIGHT + 'finish / accuracy of the test: ' + Style.RESET_ALL + 'f\n')
     print(Style.BRIGHT + 'Save image: ' + Style.RESET_ALL + 'w')
     print(Style.BRIGHT + 'Clear the canvas: ' + Style.RESET_ALL + 'c')
     print(Style.BRIGHT + 'Quit: ' + Style.RESET_ALL + 'q')
-    #print(Style.BRIGHT + 'To see this panel again use: ' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'h' +
-     #     Style.RESET_ALL)
 
 def removeSmallComponents(image, threshold):
     # find all your connected components (white blobs in your image)
