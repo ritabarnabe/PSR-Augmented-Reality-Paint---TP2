@@ -113,6 +113,7 @@ def main():
     my_rect=[]
     my_circle=[]
 
+    painting_in_video = False
     painting_with_color=False
 
     video_capture = cv2.VideoCapture(0)
@@ -170,6 +171,8 @@ def main():
 
                 if square_mode == False and ellipse_mode == False:
                     paintWindow = np.zeros((471,636,3)) + 255
+                    if painting_with_color == True:
+                        draw = cv2.imread(path_to_image)
                     for k in range(1,len(rgb_points)-1):
                         if args['use_shake_prevention'] is True:
                             if max(abs(rgb_points[k-1][0]-rgb_points[k][0]),abs(rgb_points[k-1][1]-rgb_points[k][1])) > 30 : #if two points are too much distant is an error
@@ -236,16 +239,17 @@ def main():
 
 
         #case in which you're not painting, we have to keep the picture on the frame 
-        for k in range(1,len(rgb_points)-1):
-            if args['use_shake_prevention'] is True:
-                if max(abs(rgb_points[k-1][0]-rgb_points[k][0]),abs(rgb_points[k-1][1]-rgb_points[k][1])) > 30 : #if two points are too much distant is an error
-                    continue
-            cv2.line(frame, rgb_points[k - 1], rgb_points[k], colors[color_points[k]], thick_points[k])
-        for k in my_rect:
-            cv2.rectangle(frame, k[0], k[1], colors[k[2]], k[3])
-        for k in my_circle:
-            cv2.circle(frame, k[0],k[1], colors[k[2]], k[3])
-        cv2.imshow("Tracking", frame)
+        if painting_in_video == True:
+            for k in range(1,len(rgb_points)-1):
+                if args['use_shake_prevention'] is True:
+                    if max(abs(rgb_points[k-1][0]-rgb_points[k][0]),abs(rgb_points[k-1][1]-rgb_points[k][1])) > 30 : #if two points are too much distant is an error
+                        continue
+                cv2.line(frame, rgb_points[k - 1], rgb_points[k], colors[color_points[k]], thick_points[k])
+            for k in my_rect:
+                cv2.rectangle(frame, k[0], k[1], colors[k[2]], k[3])
+            for k in my_circle:
+                cv2.circle(frame, k[0],k[1], colors[k[2]], k[3])
+            cv2.imshow("Tracking", frame)
 
 
         k=cv2.waitKey(1)
@@ -257,6 +261,8 @@ def main():
             my_rect=[]
             my_circle=[]
             paintWindow = np.zeros((471,636,3)) + 255
+            if painting_with_color == True:
+                draw = cv2.imread(path_to_image)
         #change color
         elif k== ord('b'):
             print('change color: blue')
@@ -272,22 +278,31 @@ def main():
             painting_with_color=True
 
             path_to_image = random.choice(list(paiting_images.values()))
-            draw_painte = None
+            draw_painted = None
 
             if path_to_image == 'ball.png':
-                draw_painte = "ball_painted.png"
+                draw_painted = "ball_painted.png"
             elif path_to_image == 'papagaio.png':
-                draw_painte = "papagaio_painted.png"
+                draw_painted = "papagaio_painted.png"
 
             draw = cv2.imread(path_to_image)
-            draw_painted = cv2.imread(draw_painte)
+            draw_painted = cv2.imread(draw_painted)
+
+            print('clear paint window')
+            rgb_points=[]
+            color_points=[]
+            thick_points=[]
+            my_rect=[]
+            my_circle=[]
+            paintWindow = np.zeros((471,636,3)) + 255
 
             cv2.imshow('draw', draw)
-            print('1/4: Green \n2: Red \n3: Blue')   
+            print('1 or 4: Red \n2: Green \n3: Blue')   
 
         elif k == ord('f'):#finish painting with color
             painting_with_color = False
             evaluation(draw,draw_painted,limits_values)
+            cv2.imshow('Solution',draw_painted)
             
 
             
@@ -309,6 +324,13 @@ def main():
         elif k ==ord('q'):
             print('exit')
             exit(0)
+
+        # to activate the drawing in video functionality
+        elif k == ord('m'):
+            if painting_in_video == False:
+                painting_in_video = True
+            else:
+                painting_in_video = False
 
         # drawing shapes
         #debouncing to read correctly the pression on the key
@@ -354,3 +376,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
